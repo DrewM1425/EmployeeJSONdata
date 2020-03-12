@@ -5,26 +5,77 @@
     </head>
 
 <body>
-    <table>
+    <table class = "table">
+        <thead>
+            <th>Name</th>
+            <th>Photo</th>
+            <th>Title</th>
+            <th>Unit</th>
+            <th>Email</th>
+            <th>Bio</th>
+            <th>Phone Number</th>
+        </thead>
+        <tbody>
+        </tbody>
     </table>
 </body>
 
 <script>
     var employeePromise = d3.json("employee.json");
-    employeePromise.then(success, fail);
-    
-    var success = function(employees)
+    employeePromise.then(
+    function(employees)
     {
-        
         console.log("Worked!");
-    }
-    
-    var fail = function(err)
+        var shortList = employees.splice(0,2)
+        displayTable(shortList);
+        console.log(shortList);
+    }, 
+    function(err)
     {
         console.log("Error:", err);
+    });
+    //console.log(employeePromise);
+    var displayTable = function(employees)
+    {
+        //container
+        var rows = d3.select(".table")
+            .selectAll("tr")
+            .data(employees)
+            .enter()
+            .append("tr")
+        //children
+        rows.append("td")
+            .text(function(employee)
+                  {
+                        var first = employee.firstName;
+                        var last = employee.lastName;
+                        return first+' '+last;
+                    })
+        rows.append("td")
+            .append("img")
+            .attr("src",function(employee){return employee.photo;})
+        rows.append("td")
+            .text(function(employee){return employee.title})
+        rows.append("td")
+            .text(function(employee){return employee.unit})
+        rows.append("td")
+            .text(function(employee){return employee.email})
+        rows.append("td")
+            .text(function(employee){return employee.bio})
+        rows.append("td")
+            .text(function(employee){return employee.phone})
     }
     
 </script>
+<style>
+    .table td{
+        border-style: solid;
+        border-width: thick;
+        
+    }
+    
+</style>
+
 
 
 
