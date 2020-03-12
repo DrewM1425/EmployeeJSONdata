@@ -1,0 +1,31 @@
+<html>
+<head>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    
+    </head>
+
+<body>
+    <table>
+    </table>
+</body>
+
+<script>
+    var employeePromise = d3.json("employee.json");
+    employeePromise.then(success, fail);
+    
+    var success = function(employees)
+    {
+        
+        console.log("Worked!");
+    }
+    
+    var fail = function(err)
+    {
+        console.log("Error:", err);
+    }
+    
+</script>
+
+
+
+</html>
